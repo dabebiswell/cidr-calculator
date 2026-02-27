@@ -1,5 +1,7 @@
 # CIDR Calculator
 
+[https://cidr-calc.buttandball.work/](https://cidr-calc.buttandball.work/)
+
 A fast, classless subnet calculation tool built with Vanilla TypeScript and Vite. It runs entirely client-side with no backend dependencies, designed to quickly help with routing, ACL wildcard masks, and subnet mathematics.
 
 ## Features
