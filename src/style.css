@@ -132,6 +132,28 @@ input[type="text"].invalid {
   border-color: var(--error-color);
 }
 
+.mask-dropdown {
+  background-color: var(--bg-input);
+  border: 1px solid var(--border-color);
+  color: var(--fg-color);
+  font-family: monospace;
+  font-size: 0.95rem;
+  padding: 0.25rem 0.5rem;
+  border-radius: 6px;
+  outline: none;
+  cursor: pointer;
+  transition: border-color var(--transition-speed);
+}
+
+.mask-dropdown:focus {
+  border-color: var(--accent-color);
+}
+
+.mask-dropdown option {
+  background-color: var(--bg-input);
+  color: var(--fg-color);
+}
+
 .error-msg {
   color: var(--error-color);
   font-size: 0.85rem;

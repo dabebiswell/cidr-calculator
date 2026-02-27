@@ -5,6 +5,7 @@ import { calculateCidr, isValidIpv4 } from './cidr';
 const ipInput = document.getElementById('ipAddress') as HTMLInputElement;
 const maskBitsSlider = document.getElementById('maskBits') as HTMLInputElement;
 const maskBitsLabel = document.getElementById('maskBitsLabel') as HTMLElement;
+const maskSelect = document.getElementById('maskSelect') as HTMLSelectElement;
 
 // Output Elements
 const outputs = {
@@ -73,7 +74,28 @@ function updateCalculations() {
 
 // Event Listeners
 ipInput.addEventListener('input', updateCalculations);
-maskBitsSlider.addEventListener('input', updateCalculations);
+maskBitsSlider.addEventListener('input', () => {
+  maskSelect.value = maskBitsSlider.value;
+  updateCalculations();
+});
+maskSelect.addEventListener('change', () => {
+  maskBitsSlider.value = maskSelect.value;
+  updateCalculations();
+});
+
+// Initialize mask dropdown options
+function initMaskDropdown() {
+  for (let i = 1; i <= 32; i++) {
+    const maskStr = calculateCidr('0.0.0.0', i).cidrNetmask;
+    const option = document.createElement('option');
+    option.value = i.toString();
+    option.textContent = `/${i} - ${maskStr}`;
+    maskSelect.appendChild(option);
+  }
+  maskSelect.value = "24";
+}
+
+initMaskDropdown();
 
 // Initial calculation
 updateCalculations();

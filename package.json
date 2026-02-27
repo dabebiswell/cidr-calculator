@@ -1,6 +1,5 @@
 {
   "name": "cidr-calculator",
-  "private": true,
   "author": "Dabe Biswell",
   "version": "0.0.0",
   "type": "module",
