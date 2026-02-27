@@ -46,21 +46,27 @@ export function calculateCidr(ipAddress: string, maskBits: number): CidrCalculat
     // Determine class:
     let defaultMaskBits = 24; // Class C
     const firstOctet = parseInt(ipAddress.split('.')[0], 10);
+
     if (firstOctet >= 1 && firstOctet <= 126) {
         defaultMaskBits = 8; // Class A
     } else if (firstOctet >= 128 && firstOctet <= 191) {
         defaultMaskBits = 16; // Class B
     } else if (firstOctet >= 192 && firstOctet <= 223) {
         defaultMaskBits = 24; // Class C
+    } else {
+        // Class D/E or 127 loopback -> no standard classful subnets
+        defaultMaskBits = -1;
     }
 
     let maximumSubnets = 0;
-    if (maskBits >= defaultMaskBits) {
-        maximumSubnets = Math.pow(2, maskBits - defaultMaskBits);
-    } else {
-        // If we are supernetting (mask is smaller than default), subnet calculator usually shows 0 or custom logic.
-        // For now we'll match 0 or just not show subnets if invalid. We'll show Math.pow(2, 0) normally.
-        maximumSubnets = Math.pow(2, Math.max(0, maskBits - defaultMaskBits));
+    if (defaultMaskBits !== -1) {
+        if (maskBits >= defaultMaskBits) {
+            maximumSubnets = Math.pow(2, maskBits - defaultMaskBits);
+        } else {
+            // Subnetting a supernet (e.g. 192.168.0.0/22)
+            // Standard subnet calculators show 0 subnets if borrowing is negative relative to the classful boundary.
+            maximumSubnets = 0;
+        }
     }
 
     // Maximum Addresses (total IPs including network and broadcast)

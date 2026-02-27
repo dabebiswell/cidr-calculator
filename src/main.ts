@@ -17,7 +17,6 @@ const outputs = {
   broadcastAddress: document.getElementById('broadcastAddress') as HTMLElement,
   maximumAddresses: document.getElementById('maximumAddresses') as HTMLElement,
   usableAddresses: document.getElementById('usableAddresses') as HTMLElement,
-  maximumSubnets: document.getElementById('maximumSubnets') as HTMLElement,
 };
 
 // Clipboard toast
@@ -58,7 +57,6 @@ function updateCalculations() {
   // Format numbers nicely with commas
   outputs.maximumAddresses.textContent = result.maximumAddresses.toLocaleString();
   outputs.usableAddresses.textContent = result.usableAddresses.toLocaleString();
-  outputs.maximumSubnets.textContent = result.maximumSubnets.toLocaleString();
 
   // Add subtle highlight animation class (optional if we want CSS to react)
   Object.values(outputs).forEach(el => {
